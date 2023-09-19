@@ -57,8 +57,8 @@
                  
                 
              
-              <div class="container">
-                <table class="table table-responsive"  id="datatable">
+              <div class="container table-responsive">
+                <table class="table"  id="datatable">
                   <thead>
                     <tr>
                       <th>No</th>
