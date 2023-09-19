@@ -11,9 +11,14 @@
               <!-- Logo -->
              @include('includes.logo')
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Laravue 👋</h4>
-              <p class="mb-4">Please sign-in to your account and start the adventure</p>
-
+              <h4 class="mb-2">Welcome to MyLibrary 👋</h4>
+              <p class="mb-4">Please sign-in to your account</p>
+              <div class="alert alert-primary alert-dismissible fade show" role="alert">
+              login with username: admin@mail.com, 
+              <br>
+              password: password.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
               <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">

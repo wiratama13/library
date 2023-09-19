@@ -11,7 +11,7 @@
 
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
 
-            <h4>Publisher Table</h4>
+            <h4>Transaction Table</h4>
             <!-- Basic Bootstrap Table -->
             <div class="card">
               <h5 class="card-header">Table Basic</h5>
@@ -58,7 +58,7 @@
                 
              
               <div class="container">
-                <table class="table table-responsive yajra-datatable"  id="datatable">
+                <table class="table table-responsive"  id="datatable">
                   <thead>
                     <tr>
                       <th>No</th>
