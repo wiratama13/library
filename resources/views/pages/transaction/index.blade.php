@@ -123,12 +123,11 @@
             {data: 'amount', name: 'amount'},
             {render: function (data){
               let number = data;
-              let sum = 0
-              
-              number.forEach(num => {
-                sum += num
-              });
 
+              let sum = number.reduce(function (x, y) {
+                return x + y;
+              }, 0);
+ 
               return sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             }, data: 'details[].book.price', name: 'details[].book.price'},
             {data: 'status_tr', name: 'status_tr'},
