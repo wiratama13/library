@@ -28,4 +28,4 @@
 
 
 <script src="{{ asset('assets/js/config.js') }}"></script>
-        
+{{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
