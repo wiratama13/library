@@ -122,15 +122,13 @@
             {data: 'days', name: 'days'},
             {data: 'amount', name: 'amount'},
             {
-            //   render: function (data){
-            //   let number = data;
-
-            //   let sum = number.reduce(function (x, y) {
-            //     return x + y;
-            //   }, 0);
- 
-            //   return sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-            // }, 
+              render: function (data){
+              let number = data;
+              let sum = number.reduce(function (x, y) {
+                return x + y;
+              }, 0);
+              return sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            }, 
             data: 'details[].book.price', name: 'details[].book.price'},
             {data: 'status_tr', name: 'status_tr'},
             {

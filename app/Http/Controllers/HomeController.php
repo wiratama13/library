@@ -57,9 +57,11 @@ class HomeController extends Controller
 
     foreach ($label_bar as $key => $value) {
       $data_bar[$key]['label'] = $label_bar[$key];
+      
       $data_bar[$key]['backgroundColor'] = $key == 0 ? 'rgba(60,141,188,0.9)' : 'rgba(20,260,88,0.9)';
+      
       $data_month = [];
-
+      
       foreach (range(1, 12) as $month) {
         if ($key == 0) {
           $data_month[] = Transaction::select(DB::raw("COUNT(*) as total"))->whereMonth('date_start', $month)->first()->total;
@@ -67,13 +69,13 @@ class HomeController extends Controller
           $data_month[] = Transaction::select(DB::raw("COUNT(*) as total"))->whereMonth('date_end', $month)->first()->total;
         }
       }
-
+      
       $data_bar[$key]['data'] = $data_month;
+      
     }
-
+  
     $tes = date("Y-m-d");
 
-    
     return view('home', compact(
       'total_anggota',
       'total_buku',
@@ -83,7 +85,6 @@ class HomeController extends Controller
       'data_bar',
       'label_book',
       'data_book',
-    
     ));
   }
 
