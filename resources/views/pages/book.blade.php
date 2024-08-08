@@ -73,7 +73,7 @@
                  @foreach ($publishers as $publisher)
                     <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
                  @endforeach
-                 {{-- :selected="book.publisher_id == {{ $publisher->id}}" --}}
+                
                 </select>
               </div>        
              
@@ -107,7 +107,7 @@
 
             <div class="row mt-2 mb-5">
               <div class="col">
-                <label for="price" class="form-label">price</label>
+                <label for="price" class="form-label">price </label>
                 <input type="number" v-model="price" id="price" name="price" class="form-control" placeholder="masukkan alamat" />
               </div>             
             </div>

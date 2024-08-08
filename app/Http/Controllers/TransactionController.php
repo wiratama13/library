@@ -152,7 +152,6 @@ class TransactionController extends Controller
         $transactions = Transaction::create($data);
 
         $tr_details = [];
-        // dd($request->book_id);
 
         foreach ($request->book_id as $value) {
             $tr_details[] = [

@@ -8,6 +8,7 @@ use App\Models\Catalog;
 use App\Models\Publisher;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
