@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'My Library') }}</title>
+    <title>{{ config('app.name', 'Library') }}</title>
 
     <!-- Fonts -->
     @include('includes.style')

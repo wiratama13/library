@@ -55,6 +55,6 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="fs-4 demo text-body fw-bolder">My Library</span>
+                  <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
                 </a>
               </div>
