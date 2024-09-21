@@ -70,6 +70,10 @@ class TransactionController extends Controller
                 return count($transaction->details);
             })
 
+            // ->addColumn('price', function ($transaction) {
+            //     return count($transaction->details);
+            // })
+
 
             ->addColumn('status_tr', function ($transaction) {
                 if ($transaction->status == 1) {
