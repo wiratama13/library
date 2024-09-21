@@ -4,6 +4,7 @@ use App\Models\Author;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthorController;
@@ -27,25 +28,31 @@ use App\Http\Controllers\TransactionController;
 //     return view('welcome');
 // });
 
-Auth::routes();
+// Auth::routes();
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register-form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+
+Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 Route::group(['middleware' => 'auth'], function() {
-    
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/author', [AuthorController::class, 'index'])->name('author');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    // Route::get('/author', [AuthorController::class, 'index'])->name('author');
 
-    Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
-    Route::get('/catalog/create', [CatalogController::class, 'create'])->name('catalog-create');
-    Route::post('/catalog/store', [CatalogController::class, 'store'])->name('catalog-store');
-    Route::get('/catalog/edit/{id}', [CatalogController::class, 'edit'])->name('catalog-edit');
-    Route::post('/catalog/update/{id}', [CatalogController::class, 'update'])->name('catalog-update');
-    Route::delete('/catalog/destroy/{id}', [CatalogController::class, 'destroy'])->name('catalog-delete');
+    // Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+    // Route::get('/catalog/create', [CatalogController::class, 'create'])->name('catalog-create');
+    // Route::post('/catalog/store', [CatalogController::class, 'store'])->name('catalog-store');
+    // Route::get('/catalog/edit/{id}', [CatalogController::class, 'edit'])->name('catalog-edit');
+    // Route::post('/catalog/update/{id}', [CatalogController::class, 'update'])->name('catalog-update');
+    // Route::delete('/catalog/destroy/{id}', [CatalogController::class, 'destroy'])->name('catalog-delete');
 
     Route::resource('/publishers', PublisherController::class);
     Route::get('api/publishers', [PublisherController::class, 'api']);
     
-    Route::resource('/authors', AuthorController::class);
-    Route::get('api/authors',[AuthorController::class,'api']);
+    // Route::resource('/authors', AuthorController::class);
+    // Route::get('api/authors',[AuthorController::class,'api']);
 
     Route::resource('/transactions', TransactionController::class);
     Route::get('api/transactions',[TransactionController::class,'api'])->name('transaction.get');
@@ -59,5 +66,4 @@ Route::group(['middleware' => 'auth'], function() {
     // Route::get('/members', [MemberController::class, 'index'])->name('member');
     Route::resource('/members', MemberController::class);
     Route::get('api/members', [MemberController::class, 'api'])->name('member-api');
-
 });
