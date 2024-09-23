@@ -66,7 +66,12 @@ class MemberController extends Controller
         ]);
 
         Member::create($data);
-        return redirect()->route('members.index');
+        // return redirect()->route('members.index');
+        return response()->json([
+            'status' => 'success',
+            'code'  => 200,
+            'data'  => $data
+        ]);
     }
 
     /**
@@ -98,9 +103,14 @@ class MemberController extends Controller
             "address" => "required|string"
         ]);
 
-        $members = Member::findOrFail($id);
-        $members->update($data);
-        return redirect()->route('members.index');
+        $member = Member::findOrFail($id);
+        $member->update($data);
+        // return redirect()->route('members.index');
+        return response()->json([
+            'status' => 'success',
+            'code'  => 200,
+            'data'  => $member
+        ]);
     }
 
     /**
@@ -110,5 +120,11 @@ class MemberController extends Controller
     {
         $member = Member::find($id);
         $member->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'code'  => 200,
+            'data'  => 'null'
+        ]);
     }
 }

@@ -87,6 +87,15 @@ class TransactionController extends Controller
     }
     public function api(Request $request)
     {
+        // $user = $request->user();
+        // // return $user;
+        // if (!$user || !$user->can('pengurus pinjaman')) {
+        //     return response()->json(['message' => 'Unauthorized'], 403);
+        // }else {
+        //     return response()->json(['message' => 'bisa lur'], 200);
+        // }
+        // \Log::info('User:', ['user' => auth()->user()]); // Debug log
+        
         if (auth()->user()->can('pengurus pinjaman')) {
             $transactions = Transaction::with(['member:id,name', 'details', 'details.book'])->get();
 
@@ -223,12 +232,12 @@ class TransactionController extends Controller
 
         $tr_details = [];
 
-        foreach ($request->book_id as $value) {
-            $tr_details[]  = [
-                'transaction_id' => $transaction->id,
-                'book_id' => $value,
-            ];
-        }
+        // foreach ($request->book_id as $value) {
+        //     $tr_details[]  = [
+        //         'transaction_id' => $transaction->id,
+        //         'book_id' => $value,
+        //     ];
+        // }
 
         $post_book = $request->book_id;
 
@@ -239,19 +248,23 @@ class TransactionController extends Controller
         $details_book_id = [];
         $transaction_details_id = [];
 
+        // kalau belum ada item maka tambah item peminjaman operasi array
         foreach ($details as $detail) {
             if (!in_array($detail['book_id'], $details_book_id)) {
                 $details_book_id[] = $detail['book_id'];
                 $transaction_details_id[] = $detail['id'];
             }
         }
-
+        
+        // jika tidak ada di dalam array ada maka hapus 
         foreach ($details_book_id as $key => $book) {
             if (!in_array($book, $post_book)) {
                 TransactionDetail::where('book_id', $book)->where('id', $transaction_details_id[$key])->delete();
             };
+            // dd($transaction_details_id);
         }
 
+        // kalau tidak ada maka insert item baru 
         foreach ($post_book as $pbook) {
             if (!in_array($pbook, $details_book_id)) {
                 DB::table('transaction_details')->insert([

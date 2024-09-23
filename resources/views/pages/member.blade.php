@@ -165,6 +165,7 @@
 
 <script>
 
+  
   var actionUrl = '{{ url('members') }}'
   var apiUrl = '{{ url('api/members') }}'
 

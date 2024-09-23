@@ -1,6 +1,7 @@
 <?php
 
 use Laravel\Sanctum\Sanctum;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 
 return [
 
@@ -46,7 +47,7 @@ return [
     |
     */
 
-    'expiration' => null,
+    'expiration' => 60,
 
     /*
     |--------------------------------------------------------------------------

@@ -51,5 +51,47 @@
     </div>
     @include('includes.script')
     @stack('script')
+     <script>
+        $(document).ready(function(){
+          let token  = localStorage.getItem('auth_token');
+          console.log(token)
+          // console.log(token)
+          const tokenExpires = 3600
+
+        
+          setTimeout(() => {
+
+            localStorage.removeItem('auth_token')
+            alert('sesi telah berakhir')
+            $('#logout-form').submit();
+
+          //   $.ajax({
+          //     url : '/api/logout',
+          //     type: 'POST',
+          //     headers : {
+          //       'Authorization': 'Bearer ' + token
+          //     },
+          //     success: function(response) {
+          //       localStorage.removeItem('auth_token')
+          //       window.location.href = '/login';
+          //     },
+          //     error: function(xhr,status,error) {
+          //       console.log('Logout failed:', error) 
+                
+          //     }
+          //   })
+          }, tokenExpires * 1000);
+          // localStorage.removeItem('auth_token')
+          // window.location.href = '/login';
+         
+
+      $.ajaxSetup({
+        headers: {
+          'Authorization': 'Bearer ' + token
+        },
+       
+      })
+    })
+ </script>
 </body>
 </html>

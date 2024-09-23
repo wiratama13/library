@@ -141,6 +141,7 @@
 @push('script')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
   <script>
+  
   let actionUrl = '{{ url('books') }}'
   let apiUrl = '{{ url('api/books') }}'
 
@@ -151,7 +152,7 @@
       return {
         books: [],
         search : '',
-        book: {},
+        // book: {},
         editStatus: null,
         isbn:null,
         title:null,
