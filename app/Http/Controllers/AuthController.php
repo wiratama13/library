@@ -30,19 +30,19 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
-    $request->validate([
-        'email' => ['required', function ($attribute, $value, $fail) {
-            if (!DB::table('users')->where('email', $value)->exists()) {
-                $fail('Email tidak ditemukan atau password salah');
-            }
-        }],
-        'password'   => 'required',
-    ]);
-
-
-    $auth = auth()->attempt($request->only('email', 'password'));
-
+        $request->validate([
+            'email' => ['required', function ($attribute, $value, $fail) {
+                if (!DB::table('users')->where('email', $value)->exists()) {
+                    $fail('Email tidak ditemukan atau password salah');
+                }
+            }],
+            'password'   => 'required',
+        ]);
+        
+        
+        $auth = auth()->attempt($request->only('email', 'password'));
+        
+        // return 'success';
 
     if($auth) {
         $user = Auth::user();
@@ -68,12 +68,13 @@ class AuthController extends Controller
             // 'tokenId' => $token
         ]);
     }
-    return response()->json([
+    
+        return response()->json([
         'message' => 'email atau password salah'
     ]);
 
     
-    return redirect()->route('dashboard');
+        // return redirect()->route('dashboard');
     }
 
     public function register(Request $request)
