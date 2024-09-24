@@ -12,7 +12,6 @@ use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -44,6 +43,7 @@ class AuthController extends Controller
 
     $auth = auth()->attempt($request->only('email', 'password'));
 
+
     if($auth) {
         $user = Auth::user();
 
@@ -73,7 +73,7 @@ class AuthController extends Controller
     ]);
 
     
-    
+    return redirect()->route('dashboard');
     }
 
     public function register(Request $request)
@@ -117,6 +117,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         // Redirect to login page for web requests
         return redirect()->route('login');
+
     }
 
     public function error()
