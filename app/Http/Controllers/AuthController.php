@@ -54,18 +54,18 @@ class AuthController extends Controller
         $tokenResult = $user->createToken('auth_token');
         $newWtoken = $tokenResult->plainTextToken;
         // Update kolom expires_at secara manual di tabel personal_access_tokens
-        $token = $tokenResult->accessToken;
-        // dd($token);
-        PersonalAccessToken::where('id', $token->id)->update([
-            'expires_at' => Carbon::now()->addHour(1),
-        ]);
+        // $token = $tokenResult->accessToken;
+        // // dd($token);
+        // PersonalAccessToken::where('id', $token->id)->update([
+        //     'expires_at' => Carbon::now()->addHour(1),
+        // ]);
 
 
         return response()->json([
             'message' => 'Login Berhasil',
             'token'   => $newWtoken,
             'user'    => $user,
-            'tokenId' => $token
+            // 'tokenId' => $token
         ]);
     }
     return response()->json([
@@ -104,7 +104,7 @@ class AuthController extends Controller
     {
     
         // auth()->logout();
-        $request->user()->token()->delete();
+        // $request->user()->token()->delete();
        
 
         // return redirect()->route('login');
