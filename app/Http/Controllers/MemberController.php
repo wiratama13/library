@@ -36,7 +36,7 @@ class MemberController extends Controller
 
     public function api()
     {
-        $members = Member::all();
+        $members = Member::latest()->get();
         $members = datatables()->of($members)
             ->addColumn('date', function ($member) {
                 return convert_date($member->created_at);
@@ -67,6 +67,7 @@ class MemberController extends Controller
 
         Member::create($data);
         // return redirect()->route('members.index');
+
         return response()->json([
             'status' => 'success',
             'code'  => 200,
@@ -103,6 +104,7 @@ class MemberController extends Controller
             "address" => "required|string"
         ]);
 
+
         $member = Member::findOrFail($id);
         $member->update($data);
         // return redirect()->route('members.index');
@@ -110,7 +112,8 @@ class MemberController extends Controller
             'status' => 'success',
             'code'  => 200,
             'data'  => $member
-        ]);
+
+       
     }
 
     /**
@@ -122,7 +125,8 @@ class MemberController extends Controller
         $member->delete();
 
         return response()->json([
-            'status' => 'success',
+
+            'status' => 'success deleted',
             'code'  => 200,
             'data'  => 'null'
         ]);
