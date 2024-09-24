@@ -137,11 +137,15 @@ class BookController extends Controller
         ]);
 
         $validateData = $request->validate($data);
-        $author = Book::findOrFail($id);
+        $book = Book::findOrFail($id);
 
-        $author->update($validateData);
+        $book->update($validateData);
 
-        return redirect()->route('authors.index');
+        return response()->json([
+            'status' => 'success',
+            'code'  => 200,
+            'data'  => $book
+        ]);
     }
 
     /**

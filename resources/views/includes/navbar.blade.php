@@ -77,7 +77,7 @@
                 </div>
                 <div class="flex-grow-1">
                   <span class="fw-semibold d-block" href="#">
-                          {{ Auth::user()->name }}
+                          {{-- {{ Auth::user()->name }} --}}
                   </span>
                   <small class="text-muted">Admin</small>
                 </div>
@@ -87,7 +87,7 @@
           
           
           <li>
-            <a class="dropdown-item" 
+            <a id="logout" class="dropdown-item" 
                   href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();">

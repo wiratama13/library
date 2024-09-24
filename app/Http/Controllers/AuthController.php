@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
 class AuthController extends Controller
 {
     protected $redirectTo = '/';
@@ -43,6 +42,37 @@ class AuthController extends Controller
 
 
     $auth = auth()->attempt($request->only('email', 'password'));
+
+
+    if($auth) {
+        $user = Auth::user();
+
+        // Hapus token lama jika ada
+        $user->tokens()->delete();
+
+        // Buat token baru
+        $tokenResult = $user->createToken('auth_token');
+        $newWtoken = $tokenResult->plainTextToken;
+        // Update kolom expires_at secara manual di tabel personal_access_tokens
+        $token = $tokenResult->accessToken;
+        // dd($token);
+        PersonalAccessToken::where('id', $token->id)->update([
+            'expires_at' => Carbon::now()->addHour(1),
+        ]);
+
+
+        return response()->json([
+            'message' => 'Login Berhasil',
+            'token'   => $newWtoken,
+            'user'    => $user,
+            'tokenId' => $token
+        ]);
+    }
+    return response()->json([
+        'message' => 'email atau password salah'
+    ]);
+
+    
     return redirect()->route('dashboard');
     }
 
@@ -73,24 +103,21 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
     
-    auth()->logout();
-    // $request->user()->token()->delete();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+        // auth()->logout();
+        $request->user()->token()->delete();
+       
 
-    return redirect()->route('login');
-    // return response()->json([
-    //     'message' => 'Logged out successfully'
-    // ]);
-  
-        // $user = $request->user();
-        // $user->currentAccessToken()->delete();
-        // $response = [
-        //     'success'   => true,
-        //     'message'   => 'Berhasil Logout'
-        // ];
-        // return response()->json($response);
-        // return redirect()->route('login-form')->with('message', 'Berhasil Logout');
+        // return redirect()->route('login');
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Logged out successfully'
+            ]);
+        }
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        // Redirect to login page for web requests
+        return redirect()->route('login');
+
     }
 
     public function error()
